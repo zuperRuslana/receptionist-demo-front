@@ -1,0 +1,127 @@
+<style>
+  .component-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .comp-card {
+    background: #FAF8F3;
+    border: 0.5px solid #CCC9C0;
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .comp-name {
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: #B85C38;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .comp-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1A1A18;
+    margin-bottom: 6px;
+  }
+  .comp-desc {
+    font-size: 11px;
+    color: #5C5C58;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .impl-tag {
+    display: inline-block;
+    background: #E8E4DB;
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-family: monospace;
+    font-size: 9px;
+    color: #888;
+    margin: 2px 2px 2px 0;
+  }
+  .impl-tag.highlight {
+    background: #1A1A18;
+    color: #F0EDE6;
+  }
+  .section-label {
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: #999;
+    text-transform: uppercase;
+    margin: 20px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 0.5px solid #CCC9C0;
+  }
+</style>
+
+<h2>Animation Design — Component Breakdown</h2>
+<p class="subtitle">All CSS-based, no new dependencies. One shared keyframe block added to index.css.</p>
+
+<div class="section-label">Shared keyframes added to index.css</div>
+<div class="comp-card" style="margin-bottom:14px">
+  <div class="comp-desc" style="margin-bottom:0">
+    <span class="impl-tag highlight">fadeUp</span> opacity 0→1 + translateY 12px→0, used for page-load stagger<br>
+    <span class="impl-tag highlight">barGrow</span> scaleY 0→1 from bottom, used for chart bars<br>
+    <span class="impl-tag highlight">shimmer</span> moving gradient, used for skeleton loading<br>
+    All durations 200–500ms, easing <code>ease-out</code> or <code>cubic-bezier(0.34,1.56,0.64,1)</code> for bars.
+  </div>
+</div>
+
+<div class="section-label">Component animations</div>
+<div class="component-grid">
+
+  <div class="comp-card">
+    <div class="comp-name">Home.tsx</div>
+    <div class="comp-title">Page load — staggered fade-up</div>
+    <div class="comp-desc">Left column cards animate in at 0ms, 80ms, 160ms. Right column at 80ms, 160ms. Gives a gentle cascade on every route change.</div>
+    <span class="impl-tag">animate-fadeUp</span>
+    <span class="impl-tag">animation-delay inline</span>
+  </div>
+
+  <div class="comp-card">
+    <div class="comp-name">AgentCard.tsx</div>
+    <div class="comp-title">Skeleton while loading</div>
+    <div class="comp-desc">Replace the "LOADING..." text with shimmering placeholder bars for the name and role lines. Existing <code>loading</code> state already controls this.</div>
+    <span class="impl-tag">animate-shimmer</span>
+    <span class="impl-tag">bg-[#E8E4DB] rounded</span>
+  </div>
+
+  <div class="comp-card">
+    <div class="comp-name">ResolutionChart.tsx</div>
+    <div class="comp-title">Bars grow in on mount</div>
+    <div class="comp-desc">Each bar animates from scaleY(0) to its full height on mount. Bars stagger 60ms apart left-to-right.</div>
+    <span class="impl-tag">animate-barGrow</span>
+    <span class="impl-tag">transform-origin: bottom</span>
+    <span class="impl-tag">animation-delay inline</span>
+  </div>
+
+  <div class="comp-card">
+    <div class="comp-name">ChatModal.tsx · TestChatModal.tsx</div>
+    <div class="comp-title">Fade + scale on open/close</div>
+    <div class="comp-desc">Backdrop fades in (opacity 0→0.4). Panel scales 0.97→1 and fades in together. CSS transition driven by an <code>isVisible</code> state that lags one tick behind <code>open</code>.</div>
+    <span class="impl-tag">transition-opacity</span>
+    <span class="impl-tag">transition-transform</span>
+    <span class="impl-tag">scale-97 → scale-100</span>
+  </div>
+
+  <div class="comp-card">
+    <div class="comp-name">Sidebar.tsx · TopBar.tsx</div>
+    <div class="comp-title">Active state transition</div>
+    <div class="comp-desc">Both already have <code>transition-colors</code>. Adding <code>duration-150</code> makes the active background pill animate smoothly instead of snapping.</div>
+    <span class="impl-tag">duration-150</span>
+    <span class="impl-tag">ease-in-out</span>
+  </div>
+
+  <div class="comp-card">
+    <div class="comp-name">Login.tsx · Signup.tsx · Buttons</div>
+    <div class="comp-title">Press feedback</div>
+    <div class="comp-desc">All primary buttons get <code>active:scale-[0.97]</code> so they feel tactile on click. One class, added to each button.</div>
+    <span class="impl-tag">active:scale-[0.97]</span>
+    <span class="impl-tag">transition-transform</span>
+    <span class="impl-tag">duration-100</span>
+  </div>
+
+</div>

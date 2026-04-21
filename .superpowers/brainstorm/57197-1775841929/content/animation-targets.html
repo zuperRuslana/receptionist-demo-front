@@ -1,0 +1,102 @@
+<style>
+  .preview-box {
+    background: #FAF8F3;
+    border: 0.5px solid #CCC9C0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-family: monospace;
+    font-size: 11px;
+    color: #5C5C58;
+  }
+  .tag {
+    display: inline-block;
+    background: #E8E4DB;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #888;
+    margin-right: 4px;
+    text-transform: uppercase;
+  }
+</style>
+
+<h2>Which interactions should get animations?</h2>
+<p class="subtitle">Select all that apply. Each is a subtle, functional animation — nothing flashy.</p>
+
+<div class="options" data-multiselect>
+
+  <div class="option" data-choice="page-load" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Page / route load</h3>
+      <p>Cards and sections fade + slide up when the dashboard first appears or when you navigate between routes.</p>
+      <div class="preview-box">
+        <span class="tag">AgentCard</span> <span class="tag">StatsGrid</span> <span class="tag">ResolutionChart</span> <span class="tag">KnowledgeBase</span>
+        <div style="margin-top:6px;color:#999;font-size:9px">opacity 0→1, translateY 12px→0, staggered 50ms apart</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="skeleton" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Skeleton / loading states</h3>
+      <p>While data is fetching (AgentCard, StatsGrid), show shimmering placeholder shapes instead of empty space or "LOADING..."</p>
+      <div class="preview-box">
+        <span class="tag">AgentCard</span> <span class="tag">StatsGrid</span>
+        <div style="margin-top:6px;color:#999;font-size:9px">animated shimmer across placeholder blocks, consistent with earthy palette</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="chart-bars" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Chart bars grow in</h3>
+      <p>ResolutionChart bars animate from 0 height to their value when the chart enters view.</p>
+      <div class="preview-box">
+        <span class="tag">ResolutionChart</span>
+        <div style="margin-top:6px;color:#999;font-size:9px">scaleY 0→1 from bottom, 400ms ease-out, bars stagger 60ms apart</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="modal" onclick="toggleSelect(this)">
+    <div class="letter">D</div>
+    <div class="content">
+      <h3>Modal open / close</h3>
+      <p>ChatModal and TestChatModal fade + scale in when opened, and reverse when closed. Backdrop fades in separately.</p>
+      <div class="preview-box">
+        <span class="tag">ChatModal</span> <span class="tag">TestChatModal</span>
+        <div style="margin-top:6px;color:#999;font-size:9px">backdrop: opacity 0→0.4 · panel: opacity 0→1 + scale 0.97→1, 200ms</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="sidebar" onclick="toggleSelect(this)">
+    <div class="letter">E</div>
+    <div class="content">
+      <h3>Sidebar active state</h3>
+      <p>When a nav item becomes active, the dark pill background transitions smoothly instead of snapping instantly.</p>
+      <div class="preview-box">
+        <span class="tag">Sidebar</span> <span class="tag">TopBar</span>
+        <div style="margin-top:6px;color:#999;font-size:9px">background-color transition 150ms ease (already has transition-colors, just needs duration tuned)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="buttons" onclick="toggleSelect(this)">
+    <div class="letter">F</div>
+    <div class="content">
+      <h3>Button press feedback</h3>
+      <p>Buttons (Login, Sign in, action buttons) give a subtle scale-down on click so they feel responsive.</p>
+      <div class="preview-box">
+        <span class="tag">Login</span> <span class="tag">Signup</span> <span class="tag">Sidebar buttons</span>
+        <div style="margin-top:6px;color:#999;font-size:9px">active:scale-[0.97] transition 100ms — a single Tailwind class addition</div>
+      </div>
+    </div>
+  </div>
+
+</div>

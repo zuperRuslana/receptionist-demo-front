@@ -1,0 +1,125 @@
+<style>
+  .preview-box {
+    background: #FAF8F3;
+    border: 0.5px solid #CCC9C0;
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 12px;
+    font-family: monospace;
+    min-height: 110px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-val { font-size: 36px; font-weight: 700; color: #B85C38; line-height: 1; }
+  .stat-lbl { font-size: 9px; color: #999; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
+  .bar-row { display: flex; align-items: flex-end; gap: 6px; height: 48px; margin-top: 8px; }
+  .bar { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg,#D3D1C7,#E8E4DB); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; border: 0.5px solid #1A1A18; border-radius: 2px; padding: 3px 10px; font-size: 9px; letter-spacing: 1px; color: #1A1A18; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #4A7C59; }
+
+  /* A: Subtle */
+  .subtle-hover { transition: background 0.2s; }
+  .subtle-hover:hover { background: #D8D4CB; }
+
+  /* B: Smooth */
+  @keyframes countUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes barGrow { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); transform-origin: bottom; } }
+  @keyframes fadeSlideIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .smooth-stat { animation: countUp 0.5s ease forwards; }
+  .smooth-bar { animation: barGrow 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+  .smooth-card { animation: fadeSlideIn 0.4s ease forwards; }
+
+  /* C: Dynamic */
+  @keyframes slideInLeft { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes popIn { from { opacity:0; transform:scale(0.85); } to { opacity:1; transform:scale(1); } }
+  @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+  .dynamic-card { animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+  .dynamic-bar-1 { animation: barGrow 0.5s 0.0s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .dynamic-bar-2 { animation: barGrow 0.5s 0.1s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .dynamic-bar-3 { animation: barGrow 0.5s 0.2s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .dynamic-bar-4 { animation: barGrow 0.5s 0.3s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .shimmer-dot {
+    background: linear-gradient(90deg, #4A7C59 25%, #7BAE8A 50%, #4A7C59 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 50%;
+    width: 6px; height: 6px;
+  }
+  .dynamic-stat { animation: slideInLeft 0.4s 0.1s ease both; }
+</style>
+
+<h2>What animation intensity fits this dashboard?</h2>
+<p class="subtitle">Your dashboard has a minimal, earthy, monospace aesthetic. Pick the animation feel that matches it best.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="subtle" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Subtle &amp; Functional</h3>
+      <p>Micro-interactions only — hover highlights, loading spinners, smooth colour transitions. Nothing that competes with the data.</p>
+      <div class="preview-box">
+        <div class="stat-lbl">RESOLUTION RATE</div>
+        <div class="stat-val">94%</div>
+        <div class="bar-row">
+          <div class="bar" style="height:35%"></div>
+          <div class="bar" style="height:58%"></div>
+          <div class="bar" style="height:82%"></div>
+          <div class="bar" style="height:62%"></div>
+          <div class="bar" style="height:70%"></div>
+        </div>
+        <div style="margin-top:10px">
+          <div class="chip subtle-hover" style="cursor:pointer">
+            <span class="dot"></span> OPERATIONAL
+          </div>
+        </div>
+        <div style="font-size:9px;color:#999;margin-top:8px;font-family:monospace">↑ Hover the chip to see a transition</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="smooth" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Smooth &amp; Professional</h3>
+      <p>Entrance animations on page load, bars grow into place, stats fade in, modal slides up. Polished but not distracting.</p>
+      <div class="preview-box">
+        <div class="stat-lbl smooth-card">RESOLUTION RATE</div>
+        <div class="stat-val smooth-stat">94%</div>
+        <div class="bar-row">
+          <div class="bar smooth-bar" style="height:35%"></div>
+          <div class="bar smooth-bar" style="height:58%;animation-delay:0.1s"></div>
+          <div class="bar smooth-bar" style="height:82%;animation-delay:0.2s"></div>
+          <div class="bar smooth-bar" style="height:62%;animation-delay:0.3s"></div>
+          <div class="bar smooth-bar" style="height:70%;animation-delay:0.4s"></div>
+        </div>
+        <div style="margin-top:10px" class="smooth-card" style="animation-delay:0.3s">
+          <div class="chip"><span class="dot"></span> OPERATIONAL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="dynamic" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Dynamic &amp; Expressive</h3>
+      <p>Staggered card reveals, springy bar growth, shimmer effects on live indicators, pop-in transitions. High energy and lively.</p>
+      <div class="preview-box">
+        <div class="stat-lbl dynamic-stat">RESOLUTION RATE</div>
+        <div class="stat-val dynamic-stat">94%</div>
+        <div class="bar-row">
+          <div class="bar dynamic-bar-1" style="height:35%"></div>
+          <div class="bar dynamic-bar-2" style="height:58%"></div>
+          <div class="bar dynamic-bar-3" style="height:82%"></div>
+          <div class="bar dynamic-bar-4" style="height:62%"></div>
+          <div class="bar dynamic-bar-1" style="height:70%;animation-delay:0.4s"></div>
+        </div>
+        <div style="margin-top:10px" class="dynamic-card">
+          <div class="chip"><span class="shimmer-dot"></span> OPERATIONAL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
