@@ -201,12 +201,14 @@ const AgentSettings = () => {
         value: 'chill_receptionist',
         label: 'Chill Receptionist',
         desc: 'Calm, short, natural replies. Best for brands that want a soft, non-pushy experience.',
+        preview: 'Hey! Yes we offer that — want me to find you a time?'
       },
       {
         value: 'sales_receptionist',
         label: 'Sales Receptionist',
         desc: 'Friendly and professional, but more proactive about guiding clients toward booking.',
-      },
+preview: 'Hi! We\'d love to get you booked — we actually have a special running this month!',      
+},
     ].map(s => (
       <button
         key={s.value}
